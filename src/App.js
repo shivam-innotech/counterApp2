@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import ModalTime from "./ModalTime";
 
 const App = () => {
   const [startBtn, setStartBtn] = useState(false);
@@ -55,19 +56,9 @@ const App = () => {
                   Counter App
                 </h5>
               </div>
-              <div class="modal-body">
-                <div className="timer">
-                  <span className="digits">
-                    {("0" + Math.floor((time / 6000) % 60)).slice(-2)}:
-                  </span>
-                  <span className="digits">
-                    {("0" + Math.floor((time / 100) % 60)).slice(-2)}:
-                  </span>
-                  <span className="digits mili-sec">
-                    {("0" + (time % 100)).slice(-2)}
-                  </span>
-                </div>
-              </div>
+              {/*  timer */}
+              <ModalTime time={time} />
+
               <div className="modal-footer mx-auto">
                 <button
                   type="button"
