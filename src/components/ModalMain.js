@@ -1,36 +1,9 @@
-import React, { useState, useEffect } from "react";
-import ModalTime from "./ModalTime";
+import React from 'react'
 
-const ModalMain = () => {
-  const [startBtn, setStartBtn] = useState(false);
-  const [time, setTime] = useState(0);
-
-  useEffect(() => {
-    let interval = null;
-
-    if (startBtn) {
-      interval = setInterval(() => {
-        setTime((time) => time + 1);
-      }, 100);
-    } else {
-      clearInterval(!interval);
-    }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [startBtn]);
-
-  const handleStart = () => {
-    if (startBtn) {
-      setStartBtn(false);
-    } else {
-      setStartBtn(true);
-    }
-  };
-
+function ModalMain(props) {
   return (
-    <>
-      <div className="container d-flex justify-content-center align-items-center ">
+    <div>
+       <div className="container d-flex justify-content-center align-items-center ">
         <button
           type="button"
           className="btn btn-primary mainbtn"
@@ -61,24 +34,34 @@ const ModalMain = () => {
                   aria-label="Close"
                 ></button>
               </div>
-              {/*  timer */}
-              <ModalTime time={time} />
-
+              <div class="modal-body">
+                <div className="timer">
+                  <span className="digits">
+                    {("0" + Math.floor((props.time / 6000) % 60)).slice(-2)}:
+                  </span>
+                  <span className="digits">
+                    {("0" + Math.floor((props.time / 100) % 60)).slice(-2)}:
+                  </span>
+                  <span className="digits mili-sec">
+                    {("0" + (props.time % 100)).slice(-2)}
+                  </span>
+                </div>
+              </div>
               <div className="modal-footer mx-auto">
                 <button
                   type="button"
                   className="btn btn-dark mainbtn"
-                  onClick={handleStart}
+                  onClick={props.handleStart}
                 >
-                  {!startBtn ? "start" : "stop"}
+                  {!props.startBtn ? "start" : "stop"}
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </>
-  );
-};
+    </div>
+  )
+}
 
-export default ModalMain;
+export default ModalMain
